@@ -6,6 +6,7 @@ package quocs.currencyconverter;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Document;
@@ -32,19 +33,21 @@ import javax.xml.parsers.ParserConfigurationException;
 public class connectWebService extends AsyncTask<Void, Void, String> {
     private String fromUnit, toUnit;
     private float value;
-    TextView textViewResult;
+    MainActivity activity;
     boolean reversed;
 
-    connectWebService(String fromUnit, String toUnit, float value, TextView textViewResult) {
-        this(fromUnit, toUnit, value, textViewResult, false);
+    connectWebService(String fromUnit, String toUnit, float value, MainActivity activity) {
+        this(fromUnit, toUnit, value, activity, false);
     }
 
-    connectWebService(String fromUnit, String toUnit, float value, TextView textViewResult, boolean reversed) {
+    connectWebService(String fromUnit, String toUnit, float value, MainActivity activity, boolean reversed) {
         this.fromUnit = fromUnit;
         this.toUnit = toUnit;
         this.value = value;
-        this.textViewResult = textViewResult;
+        this.activity = activity;
         this.reversed = reversed;
+
+        ((Button) activity.findViewById(R.id.buttonCheck)).setEnabled(false);
 
     }
 
@@ -66,7 +69,7 @@ public class connectWebService extends AsyncTask<Void, Void, String> {
         String strResult = document.getDocumentElement().getChildNodes().item(0).getNodeValue();
         float  fltResult = Float.parseFloat(strResult);
         if (fltResult == 0) {
-            new connectWebService(toUnit, fromUnit,value, textViewResult, true).execute();
+            new connectWebService(toUnit, fromUnit,value, activity, true).execute();
             return;
         }
         if (!reversed) {
@@ -76,7 +79,9 @@ public class connectWebService extends AsyncTask<Void, Void, String> {
             fltResult = value / fltResult;
         }
 
-        textViewResult.setText(String.format("%.2f", fltResult));
+        ((TextView) activity.findViewById(R.id.textViewResult)).setText(String.format("%.2f", fltResult));
+        ((Button) activity.findViewById(R.id.buttonCheck)).setEnabled(true);
+
     }
 
 

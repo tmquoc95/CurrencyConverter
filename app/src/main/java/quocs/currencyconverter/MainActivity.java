@@ -1,14 +1,18 @@
 package quocs.currencyconverter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+
         Spinner spinnerFrom = (Spinner) findViewById(R.id.spinnerFrom);
         Spinner spinnerTo = (Spinner) findViewById(R.id.spinnerTo);
 
@@ -41,7 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         if (!isNetworkConnected()) {
+            DialogFragment newFragment = new NoInternetDialog();
+            newFragment.show(getSupportFragmentManager(), "missiles");
 
+//            Context context = newFragment.getContext();
+//
+//            Button buttonOK  = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+//            buttonOK.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         } else {
 
             String str = ((EditText) findViewById(R.id.editTextValue)).getText().toString();
@@ -52,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             new connectWebService(lstValue[spinnerFrom.getSelectedItemPosition()], lstValue[spinnerTo.getSelectedItemPosition()],
-                    num, (TextView) findViewById(R.id.textViewResult)).execute();
+                    num, this).execute();
         }
     }
 
