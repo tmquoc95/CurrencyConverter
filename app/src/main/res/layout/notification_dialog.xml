@@ -12,7 +12,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_no_wifi" />
+        app:srcCompat="@drawable/c88993a64d30832e4570e194bec09345" />
 
     <TextView
         android:id="@+id/textView"

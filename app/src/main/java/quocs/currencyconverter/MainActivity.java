@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
             DialogFragment newFragment = new NoInternetDialog();
             newFragment.show(getSupportFragmentManager(), "missiles");
 
+
+
 //            Context context = newFragment.getContext();
 //
 //            Button buttonOK  = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);

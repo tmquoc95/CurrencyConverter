@@ -22,7 +22,7 @@ public class NoInternetDialog extends DialogFragment {
 
 
         builder.setView(inflater.inflate(R.layout.notification_dialog, null))
-                .setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
                     }
